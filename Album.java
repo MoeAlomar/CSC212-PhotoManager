@@ -2,7 +2,7 @@ public class Album {
     String name;
     String condition;
     PhotoManager manager;
-    static int count = 0;
+    static int nbCompscount = 0;
     public Album(String name, String condition, PhotoManager manager){
         this.name = name;
         this.condition = condition;
@@ -20,6 +20,8 @@ public class Album {
     }
 
     public LinkedList<Photo> getPhotos(){
+        if(manager.getPhotos().empty())
+            throw new NullPointerException("No photos in the manager");
         // New LinkedList to store photos in
         LinkedList<Photo> albumPhotos = new LinkedList<Photo>();
         //to Split conditions into multiple Strings in an array
@@ -29,25 +31,38 @@ public class Album {
         // Starting with the first photo 'head'
         photosTmp.findfirst();
         // Storing all tags of a photo in a LL to check them freely
-        LinkedList<String> tagsTmp = photosTmp.retrieve().getTags();
+
 
         // loop to run through all photos of a LL
         while (photosTmp.retrieve() != null) {
+            boolean allConditionsMet = true;
+            // get the tags of the current photo.
+            LinkedList<String> tagsTmp = photosTmp.retrieve().getTags();
+
             // loop to run through all conditions of an album and cmp to PhotoTags
             for (int i = 0; i < conditionsArray.length; i++) {
+                boolean conditionIsMet = false;
                 tagsTmp.findfirst();
 
                 // a loop to run through all tags and check if there exist a tag that == a condition
-                while ((!tagsTmp.retrieve().equals(conditionsArray[i])) && tagsTmp.retrieve() != null) {
-                    count++;
+                while (( tagsTmp.retrieve() != null) ) {
+                    nbCompscount++;
+                    if(tagsTmp.retrieve().equals(conditionsArray[i])) {
+                        conditionIsMet = true;
+                        break;
+                    }
                     tagsTmp.findnext();
                 }
                 // if no condition is met in tags, break and go for the next photo.
-                if (tagsTmp.retrieve() == null)
-                  break;
+                if (!conditionIsMet) {
+                    allConditionsMet = false;
+                    break;
+                }
             }
             // if all conditions are met, add the photo to the new linkedlist to return later.
-            albumPhotos.insert(photosTmp.retrieve());
+            if (allConditionsMet){
+                albumPhotos.insert(photosTmp.retrieve());
+            }
             // next photo
             photosTmp.findnext();
         }
@@ -56,7 +71,8 @@ public class Album {
     }
 
     public int getNbComps() {
+        nbCompscount = 0;
         getPhotos();
-        return count;
+        return nbCompscount;
     }
 }

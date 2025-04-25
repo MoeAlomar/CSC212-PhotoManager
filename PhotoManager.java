@@ -18,9 +18,13 @@ public class PhotoManager {
         if(photos.empty())
             return;
         photos.findfirst();
-        while(!photos.retrieve().getPath().equals(Path))
+        while( photos.retrieve() != null && !photos.retrieve().getPath().equals(Path))
             photos.findnext();
+        if(photos.retrieve() == null)
+            System.out.println("Photo not found!");
+
         photos.remove();
+        System.out.println("Photo has been deleted");
 
     }
 }
