@@ -21,6 +21,7 @@ public class LinkedList <T> {
     {
         return current.next == null;
     }
+
     public void findfirst()
     {
         current = head;
@@ -33,6 +34,8 @@ public class LinkedList <T> {
 
     public T retrieve()
     {
+        if (current == null)
+            return null;
         return current.data;
     }
 
