@@ -1,5 +1,5 @@
 public class PhotoManager {
-    LinkedList<Photo> photos;
+    public LinkedList<Photo> photos;
     public PhotoManager(){
     photos = new LinkedList<Photo>();
     }
@@ -18,7 +18,7 @@ public class PhotoManager {
         if(photos.empty())
             return;
         photos.findfirst();
-        while(!photos.retrieve().equals(Path))
+        while(!photos.retrieve().getPath().equals(Path))
             photos.findnext();
         photos.remove();
 

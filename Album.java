@@ -2,6 +2,7 @@ public class Album {
     String name;
     String condition;
     PhotoManager manager;
+    static int count = 0;
     public Album(String name, String condition, PhotoManager manager){
         this.name = name;
         this.condition = condition;
@@ -19,16 +20,43 @@ public class Album {
     }
 
     public LinkedList<Photo> getPhotos(){
-        return manager.getPhotos();
-    }
+        // New LinkedList to store photos in
+        LinkedList<Photo> albumPhotos = new LinkedList<Photo>();
+        //to Split conditions into multiple Strings in an array
+        String[] conditionsArray = condition.split(" AND ");
+        // getting manager photos LL to run through
+        LinkedList<Photo> photosTmp = manager.getPhotos();
+        // Starting with the first photo 'head'
+        photosTmp.findfirst();
+        // Storing all tags of a photo in a LL to check them freely
+        LinkedList<String> tagsTmp = photosTmp.retrieve().getTags();
 
-    public int getNbComps(){
-        String[] conditionsArray = condition.split(" AND "); //to Split conditions into multiple Strings in an array
-        for (int i = 0; i < conditionsArray.length; i++)
-        {  while(!(manager.getPhotos()..equals(conditionsArray[i]))
+        // loop to run through all photos of a LL
+        while (photosTmp.retrieve() != null) {
+            // loop to run through all conditions of an album and cmp to PhotoTags
+            for (int i = 0; i < conditionsArray.length; i++) {
+                tagsTmp.findfirst();
 
-
+                // a loop to run through all tags and check if there exist a tag that == a condition
+                while ((!tagsTmp.retrieve().equals(conditionsArray[i])) && tagsTmp.retrieve() != null) {
+                    count++;
+                    tagsTmp.findnext();
+                }
+                // if no condition is met in tags, break and go for the next photo.
+                if (tagsTmp.retrieve() == null)
+                  break;
+            }
+            // if all conditions are met, add the photo to the new linkedlist to return later.
+            albumPhotos.insert(photosTmp.retrieve());
+            // next photo
+            photosTmp.findnext();
         }
 
+        return albumPhotos;
+    }
+
+    public int getNbComps() {
+        getPhotos();
+        return count;
     }
 }
