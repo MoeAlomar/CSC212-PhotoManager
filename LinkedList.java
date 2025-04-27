@@ -34,8 +34,6 @@ public class LinkedList <T> {
 
     public T retrieve()
     {
-        if (current == null)
-            return null;
         return current.data;
     }
 

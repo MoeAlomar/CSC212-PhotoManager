@@ -23,6 +23,14 @@ public class Test {
         System.out.println(album1.getNbComps());
         System.out.println(album2.getNbComps());
         System.out.println("p1 Path: " +p1.getPath());
+        album1.printPhotos();
+        album2.printPhotos();
+        System.out.println("Get album2 name, condition, and photos:");
+        System.out.println("album2 name: " + album2.getName());
+        System.out.println("album2 condition: " + album2.getCondition());
+        p1.printTags();
+
+
 
     }
 }

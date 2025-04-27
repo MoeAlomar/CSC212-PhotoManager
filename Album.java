@@ -2,7 +2,7 @@ public class Album {
     String name;
     String condition;
     PhotoManager manager;
-    static int nbCompscount = 0;
+    static int nbCompsCount = 0;
     public Album(String name, String condition, PhotoManager manager){
         this.name = name;
         this.condition = condition;
@@ -34,7 +34,7 @@ public class Album {
 
 
         // loop to run through all photos of a LL
-        while (photosTmp.retrieve() != null) {
+        while (true) {
             boolean allConditionsMet = true;
             // get the tags of the current photo.
             LinkedList<String> tagsTmp = photosTmp.retrieve().getTags();
@@ -45,12 +45,14 @@ public class Album {
                 tagsTmp.findfirst();
 
                 // a loop to run through all tags and check if there exist a tag that == a condition
-                while (( tagsTmp.retrieve() != null) ) {
-                    nbCompscount++;
+                while (true) {
+                    nbCompsCount++;
                     if(tagsTmp.retrieve().equals(conditionsArray[i])) {
                         conditionIsMet = true;
                         break;
                     }
+                    if (tagsTmp.last())
+                        break;
                     tagsTmp.findnext();
                 }
                 // if no condition is met in tags, break and go for the next photo.
@@ -64,6 +66,8 @@ public class Album {
                 albumPhotos.insert(photosTmp.retrieve());
             }
             // next photo
+            if (photosTmp.last())
+                break;
             photosTmp.findnext();
         }
 
@@ -71,8 +75,22 @@ public class Album {
     }
 
     public int getNbComps() {
-        nbCompscount = 0;
+        nbCompsCount = 0;
         getPhotos();
-        return nbCompscount;
+        return nbCompsCount;
+    }
+    // method  that prints all photos of an album.
+    public void printPhotos() throws NullPointerException
+    {
+        LinkedList<Photo> photos = getPhotos();
+        if(photos.empty())
+            throw new NullPointerException("No photos in the manager!!");
+        photos.findfirst();
+        System.out.println("Photos in " + name + ":");
+        while (!photos.last()) {
+            System.out.println(photos.retrieve().getPath());
+            photos.findnext();
+        }
+        System.out.println(photos.retrieve().getPath());
     }
 }
