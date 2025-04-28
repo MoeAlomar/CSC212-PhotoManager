@@ -20,13 +20,14 @@ public BST(){
 
     while(p != null){
         q = p;
-        if (tkey.compareTo(p.key) < 0)
-            p = p.left;
-        else if(tkey.compareTo(p.key) > 0)
-            p = p.right;
-        else
+        if(tkey.compareTo(p.key) == 0) {
             current = p;
-        return true;
+            return true;
+        }
+        else if (tkey.compareTo(p.key) < 0)
+            p = p.left;
+        else
+            p = p.right;
     }
     current = q;
     return false;
