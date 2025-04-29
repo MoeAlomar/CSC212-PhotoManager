@@ -1,11 +1,11 @@
-public class PhotoManager <T> {
+public class PhotoManager {
     public LinkedList<Photo> photos;
     public PhotoManager(){
     photos = new LinkedList<Photo>();
     }
-    public T getPhotos()
+    public LinkedList<Photo> getPhotos()
     {
-            return (T) photos;
+            return photos;
     }
 
     public void addPhoto(Photo p)

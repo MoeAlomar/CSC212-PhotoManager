@@ -12,6 +12,8 @@ public class Test {
 
     public static void main(String []args)
     {
+        InvIndexPhotoManager invIndexManager = new InvIndexPhotoManager();
+     //   invIndexManager.addPhoto();
         PhotoManager manager = new PhotoManager();
         Photo p1 = new Photo("AboNasserWarrior.png", toTagsLinkedList("goat, player, warrior, AboNasser, legend"));
         manager.addPhoto(p1);

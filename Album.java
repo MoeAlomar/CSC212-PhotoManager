@@ -1,7 +1,7 @@
 public class Album {
     String name;
     String condition;
-    PhotoManager manager;
+     PhotoManager manager;
     static int nbCompsCount = 0;
     public Album(String name, String condition, PhotoManager manager){
         this.name = name;
@@ -16,9 +16,12 @@ public class Album {
         return condition;
     }
     public PhotoManager getManager(){
-        return manager;
-    }
+        if(manager instanceof InvIndexPhotoManager)
+            return (InvIndexPhotoManager) manager;
+        else
+            return (PhotoManager) manager;
 
+    }
     public LinkedList<Photo> getPhotos(){
         if(manager.getPhotos().empty())
             throw new NullPointerException("No photos in the manager");
