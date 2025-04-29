@@ -1,7 +1,7 @@
-public class InvIndexPhotoManager {
+public class InvIndexPhotoManager extends PhotoManager {
     // Constructor
     public InvIndexPhotoManager(){
-
+    BST<LinkedList<Photo>> invIndexPhotos;
     }
     // Add a photo
     public void addPhoto(Photo p){
