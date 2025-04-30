@@ -15,6 +15,15 @@ public class Photo {
     public LinkedList<String> getTags(){
         return tags;
     }
+
+    public boolean equals(Photo p){
+        if(p == null)
+            return false;
+        if(this.path.equals(p.getPath()))
+            return true;
+        else
+            return false;
+    }
     // method that prints all tags of a photo.
     public void printTags(){
         LinkedList<String> Tags = tags;

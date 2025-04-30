@@ -1,5 +1,5 @@
 public class BST <T> {
-    private BSTNode<T> root, current;
+     BSTNode<T> root, current;
 
     public BST() {
         root = current = null;
@@ -26,6 +26,7 @@ public class BST <T> {
     private BSTNode<T> visit(BSTNode<T> node) {
         if (node != null) {
             current = node;
+            System.out.println(current.key);
             return current;
         }
         else return null;
@@ -88,6 +89,25 @@ public class BST <T> {
                 postorder(root);
                 break;
         }
+    }
+
+    public LinkedList<T> collectAllData() {
+        LinkedList<T> collector = new LinkedList<>();
+        collectInOrder(root, collector);
+        return collector;
+    }
+
+    private void collectInOrder(BSTNode<T> node, LinkedList<T> collector) {
+        if (node == null) return;
+
+        // Process left subtree
+        collectInOrder(node.left, collector);
+
+        // Add current node's data to collector
+        collector.insert(node.data);
+
+        // Process right subtree
+        collectInOrder(node.right, collector);
     }
 
 
