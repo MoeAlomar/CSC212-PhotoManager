@@ -78,7 +78,7 @@ public class Test {
         InvTigers.printPhotos();
         invIndexManager.printKeys();
         Tigers.printPhotos();
-        invIndexManager.deletePhoto("Bird.jpg");
+        invIndexManager.deletePhotoEfficient(p8);
         invIndexManager.deletePhoto("owl.jpg");
         invIndexManager.printKeys();
     }

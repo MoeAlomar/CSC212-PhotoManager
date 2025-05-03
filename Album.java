@@ -16,11 +16,7 @@ public class Album {
         return condition;
     }
     public PhotoManager getManager(){
-        if(manager instanceof InvIndexPhotoManager)
-            return (InvIndexPhotoManager) manager;
-        else
-            return (PhotoManager) manager;
-
+            return manager;
     }
     public LinkedList<Photo> getPhotos()throws NullPointerException{
         String[] conditionsArray = condition.split(" AND ");
